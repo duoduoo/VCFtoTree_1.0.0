@@ -10,6 +10,7 @@ except ImportError:
 import time
 import sys
 import os
+import string
 #os.system(environ[/FolderName])
 
 #Stores selected species from DropDown
@@ -67,6 +68,26 @@ DropDown.insert(5, 'Rhesus macaque')
 c = StringVar()
 rS = StringVar()
 rE = StringVar()
+
+complex_indels = open('../complex_indelregions.txt','r')
+for indel in complex_indels:
+    indel=indel.strip()
+    if indel.startswith('#'):
+        continue
+    fields = indel.split('\t')
+    indel_chr = int(fields[0][3:])
+    indel_start = int(fields[1])
+    indel_end = int(fields[2])
+    if not int(c) == indel_chr:
+        continue
+    else:
+        if indel_start >= int(rS) and indel_start <= int(rE):
+            print 'indels start in input region'
+            break
+        elif indel_end <= int(rS) and indel_end <= int(rE):
+            print 'indels end site in input region'
+            break
+    
 
 #Entry boxes for spec frame
 Label(specFrame, text = "\n Please select the chromosome and region to be analyzed: \n").pack(side = TOP)
