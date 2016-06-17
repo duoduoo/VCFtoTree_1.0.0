@@ -11,7 +11,4 @@ We provide a user friendly interface, in which you can choose the genomes you wa
 Raw scripts can be found in **Code** folder.
 
 
-#### 05.31.2016
-- Fixed repetitive locus with the same chromosome location;
-- Fixed the deleting INDELs, it will substitute the reference with "-".
-- Fixed multi allelic indels.
+#### 
