@@ -11,6 +11,7 @@ We provide a user friendly interface, in which you can choose the genomes you wa
 Raw scripts can be found in **Code** folder.
 
 
-#### 1.0.0 -- A working version of the VCFtoTree, need to fix the process bar running after the treebuilding part.
+#### 1.0.0
+A working version of the VCFtoTree, need to fix the process bar running after the treebuilding part.
 
 
