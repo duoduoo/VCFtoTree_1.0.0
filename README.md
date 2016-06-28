@@ -12,3 +12,5 @@ Raw scripts can be found in **Code** folder.
 
 
 #### 
+1.0.0 A wokring version of the VCFtoTree, need to fix the process bar running after the treebuilding part.
+
