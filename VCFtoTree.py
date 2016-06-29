@@ -136,7 +136,7 @@ class Frames:
 #ERICA: this should return an error message to the screen if the user's selected region falls in the complex indel region
 
                 #If parameters fall in complex indel region, output warning to GUI
-                complex_indels = open('/Users/Leonidas/Documents/Erica/VCFtoTree_1.0.0/Code/complex_indelregions.txt', 'r')
+                complex_indels = open('Code/complex_indelregions.txt', 'r')
                 for indel in complex_indels:
                     indel = indel.strip()
                     if indel.startswith('#'):
