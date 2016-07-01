@@ -20,7 +20,7 @@ Here are the programs/packages needed to run the VCFtoTree.
 - wget needs to be installed in your /usr/local/bin
 - python 2.7+
 
-The easiest way to check if you have those three tools, type the command below into your Terminal:
+The easiest way to check if you have those three tools, type the commands below into your Terminal:
 
 ```unix
 find /usr/local/bin/tabix
