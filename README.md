@@ -18,7 +18,6 @@ Here are the programs/packages needed to run the VCFtoTree.
 - samtools needs to be installed in your /usr/local/bin
 - tabix needs to be installed in your /usr/local/bin
 - wget needs to be installed in your /usr/local/bin
-- python 2.7+
 
 The easiest way to check if you have those three tools, type the command below into your Terminal:
 
