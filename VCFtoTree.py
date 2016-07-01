@@ -1,6 +1,6 @@
 from Tkinter import *
 import ttk
-from PIL import Image, ImageTk
+#from PIL import Image, ImageTk
 import os
 import sys
 import subprocess
@@ -195,15 +195,15 @@ class Frames:
         Label(self.buildPage, text = '\n', font = ('Times', 15), fg = 'brown').pack(side = TOP)
 
 #ERICA: These addresses have to be changed to the ones that correspond to the mac
-        evo = Image.open('Code/evolution.jpg')
+        #evo = Image.open('Code/evolution.jpg')
 
-        tkimage = ImageTk.PhotoImage(evo)
-        evoImage = Label(self.buildPage, image = tkimage)
-        evoImage.pack()
+        # tkimage = ImageTk.PhotoImage(evo)
+        # evoImage = Label(self.buildPage, image = tkimage)
+        # evoImage.pack()
 
         os.system('chmod +x Code/buildTree_1click_erica.sh')
         # TYPO, add "self."
-        os.system('Code/buildTree_1click_erica.sh %s %s %s %s' % (self.outputValues[0], self.outputValues[1], self.outputValues[2], self.speciesList2))
+        os.system('Code/buildTree_1click_erica.sh %s %s %s %s &' % (self.outputValues[0], self.outputValues[1], self.outputValues[2], self.speciesList2))
 
     #Used to handle empty entry box instances
     #red if empty, reset to white if corrected
@@ -228,7 +228,7 @@ class Frames:
         self.vLabel.place_forget()
         self.Begin.place_forget()
         #self.About.place_forget()
-        myvar.pack_forget()
+        #myvar.pack_forget()
         self.frameList[0].pack()
 
     #Sets next frame to main window
@@ -266,11 +266,10 @@ root = Tk()
 
 #root.wm_iconbitmap("C://Users/Yousef/Downloads/favicon (2).ico")
 root.title("VCFtoTree")
-
-im = Image.open('Code/Dtree.jpg')
-tkimage = ImageTk.PhotoImage(im)
-myvar = Label(root, image = tkimage)
-myvar.pack()
+#im = Image.open('Code/Dtree.jpg')
+#tkimage = ImageTk.PhotoImage(im)
+#myvar = Label(root, image = tkimage)
+#myvar.pack()
 
 
 root.minsize(width = 500, height = 500)
