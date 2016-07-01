@@ -27,6 +27,12 @@ find /usr/local/bin/tabix
 find /usr/local/bin/samtools
 find /usr/local/bin/wget
 ```
+After making sure that you have the above three tools installed, then you can download and use the app.
+
+The app will generate a **VCFtoTree_Output** folder in which you can find the newick tree file and all other output files.
+
+#### APP download site:
+https://www.dropbox.com/sh/sewjxmh9207fp89/AAASfUGqMBtd2_HO3CR7XA3ha?dl=0
 
 #### 1.0.0
 A working version of the VCFtoTree, need to fix the process bar running after the treebuilding part.
