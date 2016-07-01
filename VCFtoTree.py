@@ -4,6 +4,7 @@ import ttk
 import os
 import sys
 import subprocess
+import threading
 
 #background image
 global myvar
@@ -31,21 +32,23 @@ class Frames:
         self.buildPage = Frame(master)
         self.frameList = [speciesSelection, specFrame, self.confPage, self.buildPage]
         self.frameCounter = 0
+        self.finishCount = 0
 
 
 #Text labels and buttons for main menu
 
-        self.fgLabel = Label(master, text = "VCFtoTree", font = ('Times', 30), fg = 'brown', bg = 'papaya whip')
-        self.vLabel = Label(master, text = "V 1.0.0", font = ('Times', 15), fg = 'brown', bg = 'papaya whip')
+        #Creates buttons and label
 
-        self.Begin = Button(master, text = "Begin", font = ('Times', 18), fg = 'brown', command = self.begin, borderwidth = 3, bg = 'papaya whip')
-        #self.About = Button(master, text = "About", font = ('Times', 15), fg = 'brown')
+        self.fgLabel = Label(master, text = "VCFtoTree", font = ('Times', 50), fg = 'brown', bg = 'papaya whip')
+        self.vLabel = Label(master, text = "V 1.0.0", font = ('Times', 20), fg = 'brown', bg = 'papaya whip')
+        self.Begin = Button(master, text = "Begin", font = ('Times', 20), fg = 'brown', command = self.begin, bg = 'papaya whip')
+
+        #Places buttons and label
 
         self.fgLabel.place(relx = .5, rely = .1, anchor = CENTER)
         self.vLabel.place(relx = .5, rely = .17, anchor = CENTER)
-
         self.Begin.place(relx = .57, rely = .6, anchor = E)
-        #self.About.place(relx = .1, rely = .6, anchor = W)
+
 
 #speciesSelection Frame
 
@@ -62,8 +65,6 @@ class Frames:
         self.DropDown.insert(5, 'Rhesus macaque')
 
         self.Next = Button(speciesSelection, text = "Next", font = ('Times', 12), fg = 'brown', command = self.oneSet, borderwidth = 4)
-
-
         self.Next.pack(side = RIGHT, pady = 45)
 
 
@@ -96,6 +97,11 @@ class Frames:
 
         self.Next.pack(side = RIGHT, pady = 45, padx = 100)
         self.Previous.pack(side = LEFT, pady = 45, padx = 100)
+
+
+        self.checkBuildStatus()
+
+
 
 #Download Page
 
@@ -137,29 +143,36 @@ class Frames:
 
                 #If parameters fall in complex indel region, output warning to GUI
                 complex_indels = open('Code/complex_indelregions.txt', 'r')
+
                 for indel in complex_indels:
                     indel = indel.strip()
+
                     if indel.startswith('#'):
                         continue
+
                     fields = indel.split('\t')
                     indel_chr = int(fields[0][3:])
                     indel_start = int(fields[1])
                     indel_end = int(fields[2])
 
                     #print cnum, str(indel_chr)
+
                     if not cnum == indel_chr:
                         continue
+
                     else:
+
                         #print cnum, str(indel_chr), indel_start, int(rStart)
                         if indel_start >= int(rStart) and indel_start <= int(rEnd):
                             print cnum, str(indel_chr), indel_start, int(rStart), int(rEnd)
-                            warningLabel1 = Label(self.confPage, text = "\n WARNING: Your selected region contains complex indels, \n this may effect the tree.", font = ('Times', 12), fg = 'red')
-                            warningLabel1.pack(side = TOP)
+                            self.warningLabel1 = Label(self.confPage, text = "\n WARNING: Your selected region contains complex indels, \n this may effect the tree.", font = ('Times', 12), fg = 'red')
+                            self.warningLabel1.pack(side = TOP)
+
                         # TYPO, here should be >=, I guess I did this wrong from the beginning.
                         elif indel_end >= int(rStart) and indel_end <= int(rEnd):
                             print cnum, str(indel_chr), indel_end, int(rStart), int(rEnd)
-                            warningLabel2 = Label(self.confPage, text = "\n WARNING: Your selected region contains complex indels, \n this may effect the tree.", font = ('Times', 12), fg = 'red')
-                            warningLabel2.pack(side = TOP)
+                            self.warningLabel2 = Label(self.confPage, text = "\n WARNING: Your selected region contains complex indels, \n this may effect the tree.", font = ('Times', 12), fg = 'red')
+                            self.warningLabel2.pack(side = TOP)
 
                 if(self.counter == 0):
 
@@ -180,6 +193,33 @@ class Frames:
 
         self.nextFrame()
 
+    #Checks to see if tree has completed, if so, thread is terminated and user is notified
+    def completedTree(self):
+
+        searchThread = threading.Timer(5.0, self.completedTree)
+        searchThread.daemon = True
+        searchThread.start()
+
+####
+###
+###
+###
+#ERICA: I'm not sure what the name of the tree is supposed to be, but what this is doing is checking to see if the tree has been made. If it has, it will
+        #tell the user that the tree is completed.
+        
+        #Searches for '.newick' extension in folder
+        try:
+            for file in os.listdir('../../../VCFtoTree_Output'):
+                if file.endswith(".newick"):
+                    self.buildMessage.pack_forget()
+                    self.progressbar.pack_forget()
+                    finished = Label(self.buildPage, text="Your tree is complete!", font=('Times', 20), fg='brown')
+                    finished.place(relx = 0.5, rely = 0.5, anchor = CENTER)
+                    searchThread.cancel()
+                    searchThread.join()
+        except: None
+
+
     #Handles glitch where two sets of widgets are added to final frame
     def oneSet(self):
         self.storeInfo(self.counter)
@@ -187,33 +227,57 @@ class Frames:
     def confirmAll(self):
 
         self.nextFrame()
-        Label(self.buildPage, text = '\n\n\nYour tree is being built. This may take a few moments. \n\n', font = ('Times', 15), fg = 'brown').pack(side = TOP)
+        self.finishCount += 1
 
-        progressbar = ttk.Progressbar(self.buildPage, orient = HORIZONTAL, len=200, mode = 'determinate')
-        progressbar.pack()
-        progressbar.start()
-        Label(self.buildPage, text = '\n', font = ('Times', 15), fg = 'brown').pack(side = TOP)
+        self.buildMessage = Label(self.buildPage, text = '\n\n\nYour tree is being built. This may take a few moments. \n\n', font = ('Times', 15), fg = 'brown')
+        self.buildMessage.pack(side = TOP)
 
-#ERICA: These addresses have to be changed to the ones that correspond to the mac
-        #evo = Image.open('Code/evolution.jpg')
+        self.progressbar = ttk.Progressbar(self.buildPage, orient = HORIZONTAL, len=300, mode = 'determinate')
+        self.progressbar.pack()
+        self.progressbar.start()
 
-        # tkimage = ImageTk.PhotoImage(evo)
-        # evoImage = Label(self.buildPage, image = tkimage)
-        # evoImage.pack()
+        #return self.finishCount
 
-        os.system('chmod +x Code/buildTree_1click_erica.sh')
-        # TYPO, add "self."
-        os.system('Code/buildTree_1click_erica.sh %s %s %s %s &' % (self.outputValues[0], self.outputValues[1], self.outputValues[2], self.speciesList2))
+    def checkBuildStatus(self):
+
+        buildThread = threading.Timer(5.0, self.checkBuildStatus)
+        buildThread.daemon = True
+        buildThread.start()
+
+        if self.finishCount == 1:
+            print 'building tree'
+            self.buildTree()
+            buildThread.cancel()
+            buildThread.join()
+
+        else:
+
+            print 'count is at:'
+            print self.finishCount
+
+    def buildTree(self):
+
+        if self.finishCount == 1:
+            os.system('chmod +x Code/buildTree_1click_erica.sh')
+            os.system('Code/buildTree_1click_erica.sh %s %s %s %s &' % (self.outputValues[0], self.outputValues[1], self.outputValues[2], self.speciesList2))
+            self.completedTree()
+            self.finishCount += 1
+
+        return
+
 
     #Used to handle empty entry box instances
     #red if empty, reset to white if corrected
     def setRed(self, sVar, entryBox, ):
         try:
             int(sVar.get())
+
             if len(sVar.get()) == 0:
                 entryBox.configure(bg = 'tomato')
+
             else:
                 entryBox.configure(bg = 'white')
+
         except:
             entryBox.configure(bg = 'tomato')
 
@@ -228,7 +292,7 @@ class Frames:
         self.vLabel.place_forget()
         self.Begin.place_forget()
         #self.About.place_forget()
-        #myvar.pack_forget()
+        # myvar.pack_forget()
         self.frameList[0].pack()
 
     #Sets next frame to main window
@@ -241,6 +305,11 @@ class Frames:
 
     #Sets previous frame to main window
     def previousFrame(self):
+
+        try: self.warningLabel1.pack_forget()
+        except: None
+        try: self.warningLabel2.pack_forget()
+        except: None
 
         self.frameList[self.frameCounter].pack_forget()
         self.frameCounter = self.frameCounter - 1
@@ -266,10 +335,10 @@ root = Tk()
 
 #root.wm_iconbitmap("C://Users/Yousef/Downloads/favicon (2).ico")
 root.title("VCFtoTree")
-#im = Image.open('Code/Dtree.jpg')
-#tkimage = ImageTk.PhotoImage(im)
-#myvar = Label(root, image = tkimage)
-#myvar.pack()
+# #im = Image.open('Code/Dtree.jpg')
+# tkimage = ImageTk.PhotoImage(im)
+# myvar = Label(root, image = tkimage)
+# myvar.pack()
 
 
 root.minsize(width = 500, height = 500)
@@ -279,3 +348,4 @@ Frames = Frames(root)
 
 #mainloop() keeps the application running, without which it dissappears
 root.mainloop()
+
