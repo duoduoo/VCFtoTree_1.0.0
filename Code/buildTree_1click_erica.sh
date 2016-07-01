@@ -15,7 +15,7 @@ specieslist=$4
 
 
 echo "The region of your interest: chr"$chr":"$start"-"$end". Have fun!"
-
+mkdir ../../../VCFtoTree_Output
 
 ##Human Condition Met
 ## prepare 1000 genome vcf file
@@ -40,6 +40,15 @@ then
 	Code/raxmlHPC-PTHREADS-SSE3 -T 2 -n YourRegion -s ALI_final.phy -mGTRGAMMA -p 235 -N 2
 
 	mv RAxML_bestTree.YourRegion RAxML_bestTree.YourRegion.newick
+	
+	mv RAxML_* ../../../VCFtoTree_Output/
+	mv AL* ../../../VCFtoTree_Output/
+	mv error* ../../../VCFtoTree_Output/
+	mv REF* ../../../VCFtoTree_Output/
+	mv chr* ../../../VCFtoTree_Output/
+	mv *.vcf ../../../VCFtoTree_Output/
+	mv *.vcf.gz.tbi ../../../VCFtoTree_Output/
+	open ../../../VCFtoTree_Output/
 
 ##Else if other species selected
 else
@@ -113,6 +122,15 @@ else
 
 	mv RAxML_bestTree.YourRegion RAxML_bestTree.YourRegion.newick
 
+	mv RAxML_* ../../../VCFtoTree_Output/
+	mv AL* ../../../VCFtoTree_Output/
+	mv error* ../../../VCFtoTree_Output/
+	mv REF* ../../../VCFtoTree_Output/
+	mv chr* ../../../VCFtoTree_Output/
+	mv *.vcf ../../../VCFtoTree_Output/
+	mv *.vcf.gz.tbi ../../../VCFtoTree_Output/
+
+	open ../../../VCFtoTree_Output/
 	echo "All done, Erica is a genius."
 fi
 
