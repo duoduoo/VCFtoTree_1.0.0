@@ -19,15 +19,15 @@ echo "The region of your interest: chr"$chr":"$start"-"$end". Have fun!"
 
 ##Human Condition Met
 ## prepare 1000 genome vcf file
-tabix -h -f http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr$chr.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz $chr:$start-$end > chr$chr.START$start.END$end.vcf
+/usr/local/bin/tabix -h -f http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr$chr.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz $chr:$start-$end > chr$chr.START$start.END$end.vcf
 
 vcffile=chr$chr.START$start.END$end.vcf
 
 ## prepare reference sequence for your chosen chromosome
-wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/chromosomes/chr$chr.fa.gz
+/usr/local/bin/wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/chromosomes/chr$chr.fa.gz
 gunzip -c chr$chr.fa.gz > chr$chr.fa
-samtools faidx chr$chr.fa
-samtools faidx chr$chr.fa chr$chr:$start-$end > REF_chr$chr.START$start.END$end.fa
+/usr/local/bin/samtools faidx chr$chr.fa
+/usr/local/bin/samtools faidx chr$chr.fa chr$chr:$start-$end > REF_chr$chr.START$start.END$end.fa
 
 ref=REF_chr$chr.START$start.END$end.fa
 
@@ -37,7 +37,7 @@ python Code/vcf2fasta_erica.py $vcffile $ref $start $end ALI_1000HG.fa error.txt
 if [ $specieslist -eq 'Human' ];
 then
 	python Code/fas2phy.py ALI_1000HG.fa ALI_final.phy
-	raxmlHPC-PTHREADS-SSE3 -T 2 -n YourRegion -s ALI_final.phy -mGTRGAMMA -p 235 -N 2
+	Code/raxmlHPC-PTHREADS-SSE3 -T 2 -n YourRegion -s ALI_final.phy -mGTRGAMMA -p 235 -N 2
 
 	mv RAxML_bestTree.YourRegion RAxML_bestTree.YourRegion.newick
 
@@ -53,9 +53,9 @@ else
 	if [[ $specieslist == *"Neandertal"* ]]
 	then
 		## prepare Altai neanderthal vcf files
-		wget http://cdna.eva.mpg.de/neandertal/altai/AltaiNeandertal/VCF/AltaiNea.hg19_1000g.$chr.mod.vcf.gz
-		tabix -h -f AltaiNea.hg19_1000g.$chr.mod.vcf.gz
-		tabix -h -f AltaiNea.hg19_1000g.$chr.mod.vcf.gz $chr:$start-$end > Altainean_chr$chr.START$start.END$end.vcf
+		/usr/local/bin/wget http://cdna.eva.mpg.de/neandertal/altai/AltaiNeandertal/VCF/AltaiNea.hg19_1000g.$chr.mod.vcf.gz
+		/usr/local/bin/tabix -h -f AltaiNea.hg19_1000g.$chr.mod.vcf.gz
+		/usr/local/bin/tabix -h -f AltaiNea.hg19_1000g.$chr.mod.vcf.gz $chr:$start-$end > Altainean_chr$chr.START$start.END$end.vcf
 		
 		vcffile_altainean=Altainean_chr$chr.START$start.END$end.vcf
 		
@@ -66,7 +66,7 @@ else
 	if [[ $specieslist == *"Denisova"* ]] 
 	then
 		## prepare Denisovan vcf files
-		tabix -h -f http://cdna.eva.mpg.de/neandertal/altai/Denisovan/DenisovaPinky.hg19_1000g.$chr.mod.vcf.gz $chr:$start-$end > Den_chr$chr.START$start.END$end.vcf
+		/usr/local/bin/tabix -h -f http://cdna.eva.mpg.de/neandertal/altai/Denisovan/DenisovaPinky.hg19_1000g.$chr.mod.vcf.gz $chr:$start-$end > Den_chr$chr.START$start.END$end.vcf
 
 		vcffile_den=Den_chr$chr.START$start.END$end.vcf
 		
@@ -77,7 +77,7 @@ else
 	if [[ $specieslist == *"Chimp"* ]]
 	then
 		# getting Chimpanzee(panTro4) reference, mapped to hg19
-		wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/vsPanTro4/axtNet/chr$chr.hg19.panTro4.net.axt.gz
+		/usr/local/bin/wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/vsPanTro4/axtNet/chr$chr.hg19.panTro4.net.axt.gz
 		gunzip -c chr$chr.hg19.panTro4.net.axt.gz > chr$chr.hg19.panTro4.net.axt
 		python Code/Map_panTro4Ref2hg19.py chr$chr.hg19.panTro4.net.axt $chr $start $end ALI_panTro4Ref_hg19.fa
 	fi
@@ -86,7 +86,7 @@ else
 	if [[ $specieslist == *"Rhesus macaque"* ]]
 	then
 		# getting Rhesus(RheMac3) reference, mapped to hg19
-		wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/vsRheMac3/axtNet/chr$chr.hg19.rheMac3.net.axt.gz
+		/usr/local/bin/wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/vsRheMac3/axtNet/chr$chr.hg19.rheMac3.net.axt.gz
 		gunzip -c chr$chr.hg19.rheMac3.net.axt.gz > chr$chr.hg19.rheMac3.net.axt	
 		python Code/Map_rheMac3Ref2hg19.py chr$chr.hg19.rheMac3.net.axt $chr $start $end ALI_rheMac3Ref_hg19.fa
 	fi
