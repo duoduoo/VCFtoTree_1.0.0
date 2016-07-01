@@ -20,13 +20,21 @@ Here are the programs/packages needed to run the VCFtoTree.
 - wget needs to be installed in your /usr/local/bin
 - python 2.7+
 
-The easiest way to check if you have those three tools, type the commands below into your Terminal:
+The easiest way to check if you have those three tools, type the command below into your Terminal:
 
 ```unix
 find /usr/local/bin/tabix
+
 find /usr/local/bin/samtools
+
 find /usr/local/bin/wget
 ```
+After making sure that you have the above three tools installed, you can download and use the app now.
+
+The app will generate a **VCFtoTree_Output** folder in which you can find the newick tree file and all other output files.
+
+#### APP download site:
+https://www.dropbox.com/s/gax4bww69hyafje/VCFtoTree_1.0.0.dmg?dl=0
 
 #### 1.0.0
 A working version of the VCFtoTree, need to fix the process bar running after the treebuilding part.
