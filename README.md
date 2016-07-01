@@ -30,12 +30,18 @@ find /usr/local/bin/wget
 ```
 After making sure that you have the above three tools installed, you can download and use the app now.
 
-The app will generate a **VCFtoTree_Output** folder in which you can find the newick tree file and all other output files.
+The running of the app mostly depends on 1) downloading the Neanderthal vcf file; 2) building the phylogeny using RAxML.
+
+After the whole process finishing, the app will generate a **VCFtoTree_Output** folder right next to your application in which you can find the newick tree file and all other output files. (The folder will be empty before the app finishes)
+
+On the screen there will also be message saying that "Your tree is completed."
+
+Your tree file the file with **.newick"** extention.
 
 #### APP download site:
 https://www.dropbox.com/s/gax4bww69hyafje/VCFtoTree_1.0.0.dmg?dl=0
 
 #### 1.0.0
-A working version of the VCFtoTree, need to fix the process bar running after the treebuilding part.
+The first working version of VCFtoTree.app.
 
 
