@@ -24,7 +24,7 @@ Here are the programs/packages needed to run the VCFtoTree.
 [wget]:https://developer.apple.com/opensource/
 [command line tools]:https://developer.apple.com/opensource/
 
-The easiest way to check if you have those three tools, type the command below into your Terminal:
+The easiest way to check if you have those three tools, type the commands below into your Terminal:
 
 ```unix
 find /usr/local/bin/tabix
