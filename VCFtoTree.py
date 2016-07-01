@@ -1,6 +1,6 @@
 from Tkinter import *
 import ttk
-from PIL import Image, ImageTk
+#from PIL import Image, ImageTk
 import os
 import sys
 import subprocess
@@ -100,7 +100,7 @@ class Frames:
 
 
         self.checkBuildStatus()
-        self.completedTree()
+
 
 
 #Download Page
@@ -208,13 +208,16 @@ class Frames:
         #tell the user that the tree is completed.
         
         #Searches for '.newick' extension in folder
-        for file in path:
-            if os.path.isfile(file) and file.endswith(".newick"):
-                self.buildMessage.pack_forget()
-                self.progressBar.pack_forget()
-
-            finished = Label(self.buildPage, text = "You're tree is complete!", font = ('Times', 60), fg = 'brown')
-            finished.pack(side = TOP)
+        try:
+            for file in os.listdir('../../../VCFtoTree_Output'):
+                if file.endswith(".newick"):
+                    self.buildMessage.pack_forget()
+                    self.progressbar.pack_forget()
+                    finished = Label(self.buildPage, text="Your tree is complete!", font=('Times', 20), fg='brown')
+                    finished.place(relx = 0.5, rely = 0.5, anchor = CENTER)
+                    searchThread.cancel()
+                    searchThread.join()
+        except: None
 
 
     #Handles glitch where two sets of widgets are added to final frame
@@ -257,6 +260,7 @@ class Frames:
         if self.finishCount == 1:
             os.system('chmod +x Code/buildTree_1click_erica.sh')
             os.system('Code/buildTree_1click_erica.sh %s %s %s %s &' % (self.outputValues[0], self.outputValues[1], self.outputValues[2], self.speciesList2))
+            self.completedTree()
             self.finishCount += 1
 
         return
@@ -288,7 +292,7 @@ class Frames:
         self.vLabel.place_forget()
         self.Begin.place_forget()
         #self.About.place_forget()
-        myvar.pack_forget()
+        # myvar.pack_forget()
         self.frameList[0].pack()
 
     #Sets next frame to main window
@@ -331,10 +335,10 @@ root = Tk()
 
 #root.wm_iconbitmap("C://Users/Yousef/Downloads/favicon (2).ico")
 root.title("VCFtoTree")
-im = Image.open('Code/Dtree.jpg')
-tkimage = ImageTk.PhotoImage(im)
-myvar = Label(root, image = tkimage)
-myvar.pack()
+# #im = Image.open('Code/Dtree.jpg')
+# tkimage = ImageTk.PhotoImage(im)
+# myvar = Label(root, image = tkimage)
+# myvar.pack()
 
 
 root.minsize(width = 500, height = 500)
@@ -344,3 +348,4 @@ Frames = Frames(root)
 
 #mainloop() keeps the application running, without which it dissappears
 root.mainloop()
+
