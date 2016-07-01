@@ -27,7 +27,7 @@ find /usr/local/bin/tabix
 find /usr/local/bin/samtools
 find /usr/local/bin/wget
 ```
-After making sure that you have the above three tools installed, then you can download and use the app.
+After making sure that you have the above three tools installed, you can download and use the app now.
 
 The app will generate a **VCFtoTree_Output** folder in which you can find the newick tree file and all other output files.
 
