@@ -14,10 +14,15 @@ Raw scripts can be found in **Code** folder.
 VCFtoTree was designed for Mac OS users, has been tested on El Captian V10.11.5 with python 2.7.11
 
 Here are the programs/packages needed to run the VCFtoTree.
-- For first time users, you need to make sure your Mac has install the command line tools from Apple.com
-- samtools needs to be installed in your /usr/local/bin
-- tabix needs to be installed in your /usr/local/bin
-- wget needs to be installed in your /usr/local/bin
+- For first time users, you need to make sure your Mac has install the [command line tools] from Apple.com
+- [samtools] needs to be installed in your /usr/local/bin
+- [tabix] needs to be installed in your /usr/local/bin
+- [wget] needs to be installed in your /usr/local/bin
+
+[samtools]:http://www.htslib.org
+[tabix]:https://github.com/samtools/tabix
+[wget]:https://developer.apple.com/opensource/
+[command line tools]:https://developer.apple.com/opensource/
 
 The easiest way to check if you have those three tools, type the command below into your Terminal:
 
