@@ -35,13 +35,13 @@ find /usr/local/bin/wget
 ```
 After making sure that you have the above three tools installed, you can download and use the app now.
 
-The running of the app mostly depends on 1) downloading the Neanderthal vcf file; 2) building the phylogeny using RAxML.
+The running time of the app mostly depends on 1) downloading the Neanderthal vcf file; 2) building the phylogeny using RAxML.
 
 After the whole process finishing, the app will generate a **VCFtoTree_Output** folder right next to your application in which you can find the newick tree file and all other output files. (The folder will be empty before the app finishes)
 
 On the screen there will also be message saying that "Your tree is completed."
 
-Your tree file the file with **.newick"** extention.
+Your tree file is the file with **.newick"** extention.
 
 #### APP download site:
 https://www.dropbox.com/sh/sewjxmh9207fp89/AAASfUGqMBtd2_HO3CR7XA3ha?dl=0
