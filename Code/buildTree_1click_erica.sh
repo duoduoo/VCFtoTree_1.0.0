@@ -31,7 +31,7 @@ gunzip -c chr$chr.fa.gz > chr$chr.fa
 
 ref=REF_chr$chr.START$start.END$end.fa
 
-python Code/vcf2fasta_erica.py $vcffile $ref $start $end ALI_1000HG.fa error.txt
+python Code/vcf2fasta_erica.py $vcffile $ref $start $end ALI_1000HG.fa log.txt
 
 ##If array only contains human
 if [ $specieslist -eq 'Human' ];
@@ -101,13 +101,13 @@ else
 	fi
 
 	##May cause error if not found
-	# add gaps from error.txt
+	# add gaps from log.txt
 	cat ALI_altainean.fa ALI_den.fa ALI_panTro4Ref_hg19.fa ALI_rheMac3Ref_hg19.fa >> ALI_temp.fa
 	#rm ALI_altainean.fa
 	#rm ALI_den.fa
 	#rm ALI_panTro4Ref_hg19.fa
 	#rm ALI_rheMac3Ref_hg19.fa
-	python Code/add_gap.py ALI_temp.fa error.txt $start $end ALI_othergenomes_wgap.fa
+	python Code/add_gap.py ALI_temp.fa log.txt $start $end ALI_othergenomes_wgap.fa
 
 	cat ALI_othergenomes_wgap.fa ALI_1000HG.fa >> ALI_final.fa
 	rm ALI_temp.fa
