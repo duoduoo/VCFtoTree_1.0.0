@@ -68,7 +68,7 @@ else
 		
 		vcffile_altainean=Altainean_chr$chr.START$start.END$end.vcf
 		
-		python Code/vcf2fasta_AltaiNean_Den_rmhetero_erica.py $vcffile_altainean $ref $start $end ALI_altainean.fa error_altainean.txt
+		python Code/vcf2fasta_AltaiNean_Den_rmhetero_erica.py $vcffile_altainean $ref $start $end ALI_altainean.fa Indels_Altai.txt
 	fi	
 
 ##If denisova in array
@@ -79,7 +79,7 @@ else
 
 		vcffile_den=Den_chr$chr.START$start.END$end.vcf
 		
-		python Code/vcf2fasta_AltaiNean_Den_rmhetero_erica.py $vcffile_den $ref $start $end ALI_den.fa error_den.txt
+		python Code/vcf2fasta_AltaiNean_Den_rmhetero_erica.py $vcffile_den $ref $start $end ALI_den.fa Indels_Denisova.txt
 	fi
 
 ##If chimp in array
