@@ -41,7 +41,7 @@ After the whole process finishing, the app will generate a **VCFtoTree_Output** 
 
 On the screen there will also be message saying that "Your tree is completed."
 
-Your tree file is the file with **.newick"** extention.
+Your tree file is the file with **".newick"** extention.
 
 #### APP download site:
 https://www.dropbox.com/sh/sewjxmh9207fp89/AAASfUGqMBtd2_HO3CR7XA3ha?dl=0
