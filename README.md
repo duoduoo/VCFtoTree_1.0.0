@@ -1,3 +1,9 @@
+# The latest version is here:
+https://github.com/duoduoo/VCFtoTree_2.0.0
+
+
+
+
 # VCFtoTree
 Build phylogeny from [1000 Genomes] Phase 3 VCF file for 2504 individuals, also including ancient ([Neanderthal], [Denisovan]) and primate genomes.
 [1000 Genomes]:http://www.1000genomes.org
