@@ -1,5 +1,5 @@
 # The latest version is here:
-https://github.com/duoduoo/VCFtoTree_2.0.0
+https://github.com/duoduoo/VCFtoTree_3.0.0
 
 
 
